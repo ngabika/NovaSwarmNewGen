@@ -1,1 +1,44 @@
-# NovaSwarmNewGen
+# NovaSwarm 2.0 — teljes redesign
+
+Ez a repo a 18 szekciós architektúra-specifikáció alapján épült, két körben:
+
+1. **Alapréteg** (lásd git history, első commit): provider-failover,
+   supervisor-sandbox, self-mod git-rollback, dreaming-ciklus, terminál.
+2. **Teljes rendszer** (ez a commit): ágens-motor, Express szerver + REST
+   API, Telegram-integráció, MCP-kezelés, teljes React felhasználói felület.
+
+R�szletek: [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+
+## Gyors indítás (fejlesztői mód)
+
+```bash
+npm install
+npm run typecheck    # tsc --noEmit
+npm test              # vitest run — mind a 90 teszt
+npm run build          # backend -> dist/
+npm run build:frontend  # frontend -> dist-frontend/
+node dist/server/index.js   # szerver indítása (alapértelmezett port: 4317)
+```
+
+Első indításkor a böngészőben (`http://localhost:4317`) a Setup Wizard
+fogad — nyelv, API kulcsok, Telegram (opcionális), bemutatkozás, első
+ágens, gazdagép-jogosultság.
+
+## Telepítés egy valós gépen
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ngabika/NovaSwarmNewGen/main/install.sh | bash
+```
+
+## Állapot
+
+**90/90 teszt zöld**, `tsc --noEmit` hibátlan, `npm run build` +
+`vite build` hibátlan, ÉS egy ténylegesen elindított szerveren valós
+HTTP-hívásokkal is leellenőrizve (lásd `ARCHITECTURE.md` 6. szakasza).
+
+## Mi NEM része még ennek a repónak
+
+Lásd [`ARCHITECTURE.md`](./ARCHITECTURE.md) 5. szakaszát — a Gemini/OpenAI/
+Anthropic/OpenRouter kliensek, a vektor-adatbázis, a Google OAuth2-
+integrációk, és néhány kisebb UI-funkció (biztonsági mentés, OS-frissítés)
+a következő kör anyaga.
